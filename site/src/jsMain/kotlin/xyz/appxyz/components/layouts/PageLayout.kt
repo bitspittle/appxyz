@@ -4,17 +4,17 @@ import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
+import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.*
 import xyz.appxyz.components.sections.Footer
 import xyz.appxyz.components.sections.NavHeader
 
 @Composable
-fun PageLayout(title: String, content: @Composable () -> Unit) {
+fun PageLayout(title: String, content: @Composable ColumnScope.() -> Unit) {
     LaunchedEffect(title) {
         document.title = title
     }
@@ -27,6 +27,8 @@ fun PageLayout(title: String, content: @Composable () -> Unit) {
             // space at the bottom). "min-content" means the use the height of the row, which we use for the footer.
             // Since this box is set to *at least* 100%, the footer will always appear at least on the bottom but can be
             // pushed further down if the first row grows beyond the page.
+            // Grids are powerful but have a bit of a learning curve. For more info, see:
+            // https://css-tricks.com/snippets/css/complete-guide-grid/
             .gridTemplateRows { size(1.fr); size(minContent) }
     ) {
         Column(
@@ -34,10 +36,9 @@ fun PageLayout(title: String, content: @Composable () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             NavHeader()
-            H1 { Text(title) }
             content()
         }
         // Associate the footer with the row that will get pushed off the bottom of the page if it can't fit.
-        Footer(Modifier.align(Alignment.Center).gridRow(2, 3))
+        Footer(Modifier.fillMaxWidth().gridRow(2))
     }
 }

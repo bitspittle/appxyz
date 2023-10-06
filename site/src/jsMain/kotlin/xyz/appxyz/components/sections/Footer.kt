@@ -1,30 +1,53 @@
 package xyz.appxyz.components.sections
 
-import androidx.compose.runtime.*
-import com.varabyte.kobweb.compose.css.AlignSelf
+import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.modifiers.flexWrap
+import com.varabyte.kobweb.compose.ui.modifiers.margin
+import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.setVariable
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.style.*
+import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
+import com.varabyte.kobweb.silk.components.style.ComponentStyle
+import com.varabyte.kobweb.silk.components.style.base
+import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.components.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.theme.SilkTheme
-import com.varabyte.kobweb.silk.theme.colors.palette.border
-import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import org.jetbrains.compose.web.css.*
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import org.jetbrains.compose.web.css.FlexWrap
+import org.jetbrains.compose.web.css.cssRem
+import xyz.appxyz.shiftedBackgroundColor
+import xyz.appxyz.toSitePalette
 
 val FooterStyle by ComponentStyle.base {
     Modifier
-        .margin(top = 2.cssRem)
-        .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)
-        .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
-        .alignSelf(AlignSelf.Center)
+        .shiftedBackgroundColor(colorMode)
+        .padding(topBottom = 1.5.cssRem)
 }
 
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
-    Row(FooterStyle.toModifier().then(modifier)) {
-        SpanText("Made with ")
-        Link("https://github.com/varabyte/kobweb", "Kobweb")
+    Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
+        Row(Modifier.flexWrap(FlexWrap.Wrap)) {
+            SpanText("Built with ")
+            Link(
+                "https://github.com/varabyte/kobweb",
+                "Kobweb",
+                Modifier.setVariable(ColorVar, ColorMode.current.toSitePalette().brand.primary),
+                variant = UncoloredLinkVariant
+            )
+            SpanText(", template designed by ")
+            Link(
+                "https://ui-rocket.com",
+                "UI Rocket",
+                Modifier.setVariable(ColorVar, ColorMode.current.toSitePalette().brand.accent),
+                variant = UncoloredLinkVariant
+            )
+            // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template together for us! If you
+            // like the design here and want help building your own site, please check them out at the link above!
+        }
     }
 }
