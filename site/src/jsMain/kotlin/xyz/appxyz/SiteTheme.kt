@@ -3,6 +3,9 @@ package xyz.appxyz
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.color
+import com.varabyte.kobweb.silk.components.style.ComponentStyle
+import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
@@ -24,7 +27,7 @@ object SitePalettes {
         ColorMode.LIGHT to SitePalette(
             brand = SitePalette.Brand(
                 primary = Color.rgb(0x3C83EF),
-                accent = Color.rgb(0xF1C75A),
+                accent = Color.rgb(0xF28C28),
             )
         ),
         ColorMode.DARK to SitePalette(
@@ -50,3 +53,11 @@ fun initTheme(ctx: InitSilkContext) {
  */
 fun Modifier.shiftedBackgroundColor(colorMode: ColorMode) =
     this.backgroundColor(colorMode.toPalette().background.shifted(colorMode, byPercent = 0.05f))
+
+val PrimaryColorStyle by ComponentStyle.base {
+    Modifier.color(colorMode.toSitePalette().brand.primary)
+}
+
+val AccentColorStyle by ComponentStyle.base {
+    Modifier.color(colorMode.toSitePalette().brand.accent)
+}

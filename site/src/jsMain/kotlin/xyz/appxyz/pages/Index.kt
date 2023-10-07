@@ -56,7 +56,7 @@ private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, he
 @Composable
 fun HomePage() {
     PageLayout("Home") {
-        Row(Modifier.maxWidth(60.cssRem).gap(2.cssRem).margin(top = 20.vh)) {
+        Row(Modifier.fillMaxWidth().gap(2.cssRem).margin(top = 20.vh)) {
             Column(Modifier.gap(2.cssRem)) {
                 Div(HeadlineTextStyle.toAttrs()) {
                     SpanText("Use this template as your starting point for ")

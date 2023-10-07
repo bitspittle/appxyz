@@ -16,7 +16,7 @@ import xyz.appxyz.components.sections.NavHeader
 @Composable
 fun PageLayout(title: String, content: @Composable ColumnScope.() -> Unit) {
     LaunchedEffect(title) {
-        document.title = title
+        document.title = "Kobweb - $title"
     }
 
     Box(
@@ -29,10 +29,11 @@ fun PageLayout(title: String, content: @Composable ColumnScope.() -> Unit) {
             // pushed further down if the first row grows beyond the page.
             // Grids are powerful but have a bit of a learning curve. For more info, see:
             // https://css-tricks.com/snippets/css/complete-guide-grid/
-            .gridTemplateRows { size(1.fr); size(minContent) }
+            .gridTemplateRows { size(1.fr); size(minContent) },
+        contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().textAlign(TextAlign.Center),
+            modifier = Modifier.width(60.cssRem).fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             NavHeader()

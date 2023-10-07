@@ -3,25 +3,29 @@ package xyz.appxyz
 import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.silk.components.forms.ButtonStyle
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
+import com.varabyte.kobweb.silk.components.style.addVariantBase
 import com.varabyte.kobweb.silk.components.style.base
+import com.varabyte.kobweb.silk.components.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.palette.background
-import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import com.varabyte.kobweb.silk.theme.colors.shifted
+import com.varabyte.kobweb.silk.init.registerStyleBase
+import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.percent
+import org.jetbrains.compose.web.css.px
 
-val PrimaryColorStyle by ComponentStyle.base {
-    Modifier.color(colorMode.toSitePalette().brand.primary)
-}
-
-val AccentColorStyle by ComponentStyle.base {
-    Modifier.color(colorMode.toSitePalette().brand.accent)
+@InitSilk
+fun initSiteStyles(ctx: InitSilkContext) {
+    ctx.stylesheet.registerStyleBase("body") {
+        Modifier
+            .fontFamily(
+                "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+                "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
+            )
+    }
 }
 
 val HeadlineTextStyle by ComponentStyle.base {
@@ -36,6 +40,10 @@ val SubheadlineTextStyle by ComponentStyle.base {
         .fontSize(1.cssRem)
         .textAlign(TextAlign.Start)
         .opacity(0.8f)
+}
+
+val CircleButtonVariant by ButtonStyle.addVariantBase {
+    Modifier.padding(0.px).borderRadius(50.percent)
 }
 
 /**

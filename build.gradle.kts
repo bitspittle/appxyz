@@ -3,6 +3,12 @@ subprojects {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         google()
-        maven("https://us-central1-maven.pkg.dev/varabyte-repos/public")
+        ///// DO NOT SUBMIT
+        mavenLocal {
+            content {
+                includeGroupByRegex("com\\.varabyte\\.kobweb.*")
+            }
+        }
+//        maven("https://us-central1-maven.pkg.dev/varabyte-repos/public")
     }
 }

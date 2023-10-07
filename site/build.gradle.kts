@@ -33,7 +33,8 @@ kotlin {
                 implementation(compose.html.core)
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
-                implementation(libs.silk.icons.fa)
+                // Uncomment if you want access to font-awesome icons
+                // implementation(libs.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
             }
         }
