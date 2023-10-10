@@ -1,12 +1,15 @@
 package xyz.appxyz.components.layouts
 
 import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.DisplayStyle
@@ -19,20 +22,44 @@ import xyz.appxyz.toSitePalette
 val MarkdownStyle by ComponentStyle {
     base {
         Modifier
-            .padding(top = 2.cssRem)
+            .padding(top = 5.cssRem)
             .lineHeight(1.5.cssRem)
+            .color(when (colorMode) {
+                ColorMode.LIGHT -> Colors.DimGray
+                ColorMode.DARK -> Colors.Silver
+            })
     }
 
     // The following rules apply to all descendant elements, indicated by the leading space.
     // When you use `cssRule`, the name of this style is prefixed in front of it.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator
 
+    cssRule(" h1") {
+        Modifier
+            .fontSize(3.8.cssRem)
+            .fontWeight(400)
+            .margin(topBottom = 2.5.cssRem)
+    }
+
     cssRule(" h2") {
-        Modifier.color(colorMode.toSitePalette().brand.accent).margin(topBottom = 1.cssRem)
+        Modifier
+            .fontSize(3.cssRem)
+            .fontWeight(300)
+            .margin(topBottom = 2.cssRem)
     }
 
     cssRule(" h3") {
-        Modifier.color(colorMode.toSitePalette().brand.accent).margin(topBottom = 0.8.cssRem)
+        Modifier
+            .fontSize(2.4.cssRem)
+            .fontWeight(300)
+            .margin(topBottom = 1.5.cssRem)
+    }
+
+    cssRule(" h4") {
+        Modifier
+            .fontSize(1.2.cssRem)
+            .fontWeight(FontWeight.Bolder)
+            .margin(top = 1.cssRem, bottom = 0.5.cssRem)
     }
 
     cssRule(" p") {
@@ -44,7 +71,7 @@ val MarkdownStyle by ComponentStyle {
     }
 
     cssRule(" code") {
-        Modifier.opacity(0.8f)
+        Modifier.opacity(0.8f).fontWeight(FontWeight.Bolder)
     }
 
     cssRule(" pre") {
