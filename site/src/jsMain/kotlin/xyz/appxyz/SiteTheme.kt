@@ -8,7 +8,10 @@ import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
+import com.varabyte.kobweb.silk.theme.SilkTheme
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.Palette
+import com.varabyte.kobweb.silk.theme.colors.palette.Palettes
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import com.varabyte.kobweb.silk.theme.colors.shifted
@@ -49,10 +52,16 @@ fun initTheme(ctx: InitSilkContext) {
 }
 
 /**
- * A useful modifier to apply to a container that should differentiate itself from the background but just a little.
+ * A useful color to apply to a container that should differentiate itself from the background but just a little.
  */
-fun Modifier.shiftedBackgroundColor(colorMode: ColorMode) =
-    this.backgroundColor(colorMode.toPalette().background.shifted(colorMode, byPercent = 0.05f))
+val Palette.nearBackground: Color get() {
+    val colorMode = when (this) {
+        SilkTheme.palettes.light -> ColorMode.LIGHT
+        SilkTheme.palettes.dark -> ColorMode.DARK
+        else -> error("Unexpected palette")
+    }
+    return background.shifted(colorMode, byPercent = 0.1f)
+}
 
 val PrimaryColorStyle by ComponentStyle.base {
     Modifier.color(colorMode.toSitePalette().brand.primary)

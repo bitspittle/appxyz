@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.dom.ElementTarget
+import com.varabyte.kobweb.compose.dom.Svg
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -28,7 +29,7 @@ import xyz.appxyz.CircleButtonVariant
 import xyz.appxyz.ClickableStyle
 
 val NavHeaderStyle by ComponentStyle.base {
-    Modifier.fillMaxWidth().padding(topBottom = 1.cssRem)
+    Modifier.fillMaxWidth().padding(1.cssRem)
 }
 
 @Composable

@@ -19,7 +19,9 @@ kobweb {
 }
 
 kotlin {
-    configAsKobwebApplication("appxyz")
+    // This example is frontend only. However, for a fullstack app, you can uncomment the includeServer parameter
+    // and the `jvmMain` source set below.
+    configAsKobwebApplication("appxyz" /*, includeServer = true*/)
 
     sourceSets {
         val commonMain by getting {
@@ -33,10 +35,18 @@ kotlin {
                 implementation(compose.html.core)
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
-                // Uncomment if you want access to font-awesome icons
+                // This default template uses built-in SVG icons, but what's available is limited.
+                // Uncomment the following if you want access to a large set of font-awesome icons:
                 // implementation(libs.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
             }
         }
+
+        // Uncomment the following if you pass `includeServer = true` into the `configAsKobwebApplication` call.
+//        val jvmMain by getting {
+//            dependencies {
+//                implementation(libs.kobweb.api)
+//            }
+//        }
     }
 }
