@@ -3,15 +3,12 @@ package xyz.appxyz.components.layouts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.varabyte.kobweb.compose.css.height
-import com.varabyte.kobweb.compose.dom.*
+import com.varabyte.kobweb.compose.dom.svg.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
-import com.varabyte.kobweb.compose.foundation.layout.BoxScope
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
@@ -27,7 +24,6 @@ import org.jetbrains.compose.web.css.percent
 import xyz.appxyz.components.sections.Footer
 import xyz.appxyz.components.sections.NavHeader
 import xyz.appxyz.nearBackground
-import xyz.appxyz.toSitePalette
 
 val PageContentStyle by ComponentStyle.base {
     Modifier.maxWidth(60.cssRem).padding(2.cssRem).fillMaxHeight()
