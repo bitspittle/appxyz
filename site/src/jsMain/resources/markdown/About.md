@@ -34,9 +34,12 @@ An example of how to define some site-specific colors, effectively extending the
 
 By convention, Kobweb codebases organize reusable site components under this folder. Within it, you have:
 
-* `layout/` represents top-level organization for pages
-* `sections/` areas of content that appear across multiple pages (such as nav bars and footers)
-* `widgets/` home for low-level UI pieces that you can use around your site
+* `layout/`<br>
+  Represents top-level organization for pages
+* `sections/`<br>
+  Areas of content that appear across multiple pages (such as nav bars and footers)
+* `widgets/`<br>
+  Home for low-level UI pieces that you can use around your site
 
 #### pages/
 
@@ -45,9 +48,11 @@ Defining a page outside of this folder will be flagged as an error by the Kobweb
 
 #### resources/
 
-* `public` If you want to host any media (such as an icon, an image, text configuration files, movies, fonts, etc.), you
+* `public`<br>
+  If you want to host any media (such as an icon, an image, text configuration files, movies, fonts, etc.), you
   should put it under this folder.
-* `markdown` Any markdown discovered in here by Kobweb at compile time will be converted into pages on your site.
+* `markdown`<br>
+  Any markdown discovered in here by Kobweb at compile time will be converted into pages on your site.
 
 ### Classes
 
