@@ -17,7 +17,6 @@ import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
 import xyz.appxyz.nearBackground
-import xyz.appxyz.toSitePalette
 
 val MarkdownStyle by ComponentStyle {
     base {

@@ -1,49 +1,21 @@
 package xyz.appxyz
 
-import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.theme.SilkTheme
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.Palette
-import com.varabyte.kobweb.silk.theme.colors.palette.Palettes
 import com.varabyte.kobweb.silk.theme.colors.palette.background
-import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import com.varabyte.kobweb.silk.theme.colors.shifted
 
-class SitePalette(
-    val brand: Brand,
-) {
-    class Brand(
-        val primary: Color,
-        val accent: Color,
-    )
+object SiteColors {
+    class Brand {
+        val primary: Color = Color.rgb(0x3C83EF)
+        val accent: Color = Color.rgb(0xF3DB5B)
+    }
+    val brand = Brand()
 }
-
-object SitePalettes {
-    private val sitePalettes = mapOf(
-        ColorMode.LIGHT to SitePalette(
-            brand = SitePalette.Brand(
-                primary = Color.rgb(0x3C83EF),
-                accent = Color.rgb(0xF28C28),
-            )
-        ),
-        ColorMode.DARK to SitePalette(
-            brand = SitePalette.Brand(
-                primary = Color.rgb(0x3C83EF),
-                accent = Color.rgb(0xF1C75A),
-            )
-        )
-    )
-
-    operator fun get(colorMode: ColorMode) = sitePalettes.getValue(colorMode)
-}
-fun ColorMode.toSitePalette() = SitePalettes[this]
 
 @InitSilk
 fun initTheme(ctx: InitSilkContext) {
@@ -61,12 +33,4 @@ val Palette.nearBackground: Color get() {
         else -> error("Unexpected palette")
     }
     return background.shifted(colorMode, byPercent = 0.1f)
-}
-
-val PrimaryColorStyle by ComponentStyle.base {
-    Modifier.color(colorMode.toSitePalette().brand.primary)
-}
-
-val AccentColorStyle by ComponentStyle.base {
-    Modifier.color(colorMode.toSitePalette().brand.accent)
 }
