@@ -22,7 +22,6 @@ import xyz.appxyz.toSitePalette
 val MarkdownStyle by ComponentStyle {
     base {
         Modifier
-            .padding(top = 5.cssRem)
             .lineHeight(1.5.cssRem)
             .color(when (colorMode) {
                 ColorMode.LIGHT -> Colors.DimGray
