@@ -4,13 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.varabyte.kobweb.compose.dom.ElementTarget
-import com.varabyte.kobweb.compose.dom.Svg
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.core.rememberPageContext
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.gap
+import com.varabyte.kobweb.compose.ui.modifiers.height
+import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.MoonIcon
@@ -25,8 +26,8 @@ import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.cssRem
+import org.jetbrains.compose.web.dom.A
 import xyz.appxyz.CircleButtonVariant
-import xyz.appxyz.ClickableStyle
 
 val NavHeaderStyle by ComponentStyle.base {
     Modifier.fillMaxWidth().padding(1.cssRem)
@@ -39,17 +40,12 @@ private fun NavLink(path: String, text: String) {
 
 @Composable
 fun NavHeader() {
-    val ctx = rememberPageContext()
     var colorMode by ColorMode.currentState
     Row(NavHeaderStyle.toModifier().gap(1.5.cssRem), verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            "/kobweb-logo.png", "Kobweb Logo",
-            ClickableStyle.toModifier()
-                .height(2.cssRem)
-                .onClick {
-                    ctx.router.navigateTo("https://kobweb.varabyte.com")
-                }
-        )
+        A("https://kobweb.varabyte.com") {
+            Image("/kobweb-logo.png", "Kobweb Logo", Modifier.height(2.cssRem))
+        }
+
         Spacer()
         NavLink("/", "Home")
         NavLink("/about", "About")
