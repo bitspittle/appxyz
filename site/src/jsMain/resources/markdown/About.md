@@ -49,8 +49,9 @@ Defining a page outside of this folder will be flagged as an error by the Kobweb
 #### resources/
 
 * `public`<br>
-  If you want to host any media (such as an icon, an image, text configuration files, movies, fonts, etc.), you
-  should put it under this folder.
+  If you want to host any media on your site (such as an icon, an image, text configuration files, movies, fonts, etc.),
+  you should put it under this folder. For example, the file `public/images/cat.png` would be available at
+  `https://(your.site)/images/cat.png` when the site was deployed.
 * `markdown`<br>
   Any markdown discovered in here by Kobweb at compile time will be converted into pages on your site.
 
