@@ -1,16 +1,18 @@
 package xyz.appxyz.pages
 
 import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.css.Isolation
 import com.varabyte.kobweb.compose.css.StyleVariable
 import com.varabyte.kobweb.compose.css.functions.blur
-import com.varabyte.kobweb.compose.dom.ElementTarget
-import com.varabyte.kobweb.compose.dom.svg.*
+import com.varabyte.kobweb.compose.dom.svg.Ellipse
+import com.varabyte.kobweb.compose.dom.svg.Svg
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
@@ -18,21 +20,21 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.layout.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toAttrs
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.ColorSchemes
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import xyz.appxyz.HeadlineTextStyle
-import xyz.appxyz.SiteColors
 import xyz.appxyz.SubheadlineTextStyle
 import xyz.appxyz.components.layouts.PageLayout
+import xyz.appxyz.toSitePalette
 
 
 private val GridCellColorVar by StyleVariable<Color>()
@@ -72,13 +74,30 @@ fun HomePage() {
     PageLayout("Home") {
         Row(Modifier.fillMaxWidth().gap(2.cssRem).margin(top = 20.vh)) {
             Box {
-                SvgBlurredEllipse(SiteColors.brand.accent, Modifier.align(Alignment.TopEnd))
-                SvgBlurredEllipse(SiteColors.brand.primary, Modifier.align(Alignment.BottomStart))
+                val sitePalette = ColorMode.current.toSitePalette()
 
-                Column(Modifier.gap(2.cssRem)) {
+                SvgBlurredEllipse(sitePalette.brand.accent, Modifier.align(Alignment.TopEnd))
+                SvgBlurredEllipse(sitePalette.brand.primary, Modifier.align(Alignment.BottomStart))
+
+                // The Isolate modifier is used to prevent the blurred ellipses from affecting these elements
+                // It's weird, but that's CSS! Read up on stacking contexts for more information.
+                Column(Modifier.gap(2.cssRem).isolation(Isolation.Isolate)) {
                     Div(HeadlineTextStyle.toAttrs()) {
-                        SpanText("Use this template as your starting point for ")
-                        SpanText("Kobweb", Modifier.color(SiteColors.brand.accent))
+                        SpanText(
+                            "Use this template as your starting point for ", Modifier.color(
+                                when (ColorMode.current) {
+                                    ColorMode.LIGHT -> Colors.Black
+                                    ColorMode.DARK -> Colors.White
+                                }
+                            )
+                        )
+                        SpanText(
+                            "Kobweb",
+                            Modifier
+                                .color(sitePalette.brand.accent)
+                                // Use a shadow so this light-colored word is more visible in light mode
+                                .textShadow(0.px, 0.px, blurRadius = 0.5.cssRem, color = Colors.Gray)
+                        )
                     }
 
                     Div(SubheadlineTextStyle.toAttrs()) {
@@ -93,7 +112,6 @@ fun HomePage() {
                     }, colorScheme = ColorSchemes.Blue) {
                         Text("This could be your CTA")
                     }
-                    Tooltip(ElementTarget.PreviousSibling, "A CTA is a call to action")
                 }
             }
 
@@ -108,10 +126,11 @@ fun HomePage() {
                 .height(18.cssRem)
                 .toAttrs()
             ) {
-                GridCell(SiteColors.brand.primary, 1, 1, 2, 2)
+                val sitePalette = ColorMode.current.toSitePalette()
+                GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
                 GridCell(ColorSchemes.Monochrome._600, 1, 3)
                 GridCell(ColorSchemes.Monochrome._100, 1, 4, width = 2)
-                GridCell(SiteColors.brand.accent, 2, 3, width = 2)
+                GridCell(sitePalette.brand.accent, 2, 3, width = 2)
                 GridCell(ColorSchemes.Monochrome._300, 2, 5)
                 GridCell(ColorSchemes.Monochrome._800, 3, 1, width = 5)
             }

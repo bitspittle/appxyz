@@ -16,15 +16,15 @@ import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.style.vars.color.ColorVar
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.FlexWrap
 import org.jetbrains.compose.web.css.cssRem
-import xyz.appxyz.SiteColors
-import xyz.appxyz.nearBackground
+import xyz.appxyz.toSitePalette
 
 val FooterStyle by ComponentStyle.base {
     Modifier
-        .backgroundColor(colorMode.toPalette().nearBackground)
+        .backgroundColor(colorMode.toSitePalette().nearBackground)
         .padding(topBottom = 1.5.cssRem)
 }
 
@@ -32,18 +32,20 @@ val FooterStyle by ComponentStyle.base {
 fun Footer(modifier: Modifier = Modifier) {
     Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
         Row(Modifier.flexWrap(FlexWrap.Wrap)) {
+            val sitePalette = ColorMode.current.toSitePalette()
             SpanText("Built with ")
             Link(
                 "https://github.com/varabyte/kobweb",
                 "Kobweb",
-                Modifier.setVariable(ColorVar, SiteColors.brand.primary),
+                Modifier.setVariable(ColorVar, sitePalette.brand.primary),
                 variant = UncoloredLinkVariant
             )
             SpanText(", template designed by ")
             Link(
                 "https://ui-rocket.com",
                 "UI Rocket",
-                Modifier.setVariable(ColorVar, SiteColors.brand.accent),
+                Modifier
+                    .setVariable(ColorVar, sitePalette.brand.accent),
                 variant = UncoloredLinkVariant
             )
             // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template together for us! If you
