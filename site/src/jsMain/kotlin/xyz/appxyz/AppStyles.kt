@@ -18,10 +18,7 @@ import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.modifyComponentStyle
 import com.varabyte.kobweb.silk.theme.modifyComponentStyleBase
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 @InitSilk
 fun initSiteStyles(ctx: InitSilkContext) {
@@ -40,6 +37,7 @@ fun initSiteStyles(ctx: InitSilkContext) {
                 "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
             )
             .fontSize(18.px)
+            .lineHeight(1.5)
     }
 
     // Silk dividers only extend 90% by default; we want full width dividers in our site
@@ -51,8 +49,8 @@ fun initSiteStyles(ctx: InitSilkContext) {
 val HeadlineTextStyle by ComponentStyle.base {
     Modifier
         .fontSize(3.cssRem)
-        .lineHeight(120.percent)
         .textAlign(TextAlign.Start)
+        .lineHeight(1.2) //1.5x doesn't look as good on very large text
 }
 
 val SubheadlineTextStyle by ComponentStyle.base {

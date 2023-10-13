@@ -10,17 +10,10 @@ import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 import xyz.appxyz.toSitePalette
 
 val MarkdownStyle by ComponentStyle {
-    base {
-        Modifier.lineHeight(1.5.cssRem)
-    }
-
     // The following rules apply to all descendant elements, indicated by the leading space.
     // When you use `cssRule`, the name of this style is prefixed in front of it.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator
@@ -30,6 +23,7 @@ val MarkdownStyle by ComponentStyle {
             .fontSize(3.8.cssRem)
             .fontWeight(400)
             .margin(topBottom = 2.5.cssRem)
+            .lineHeight(1.2) //1.5x doesn't look as good on very large text
     }
 
     cssRule(" h2") {
