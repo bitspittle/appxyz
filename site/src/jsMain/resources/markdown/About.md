@@ -44,7 +44,8 @@ By convention, Kobweb codebases organize reusable site components under this fol
 #### pages/
 
 Any `@Composable` under this folder additionally tagged with `@Page` will have a route generated for it automatically.
-Defining a page outside of this folder will be flagged as an error by the Kobweb Gradle plugin at compile time.
+Defining a page outside of this folder will be flagged as an error by the Kobweb Gradle plugin at compile time. Note
+that additional pages (like this one!) might live under the `resources/markdown` folder.
 
 #### resources/
 
