@@ -36,9 +36,20 @@ import xyz.appxyz.SubheadlineTextStyle
 import xyz.appxyz.components.layouts.PageLayout
 import xyz.appxyz.toSitePalette
 
+// A demo grid that appears on the homepage because it looks good
+val HomeGridStyle by ComponentStyle.base(extraModifiers = Modifier.displayIfAtLeast(Breakpoint.MD)) {
+    Modifier
+        .grid {
+            rows { repeat(3) { size(1.fr) } }
+            columns { repeat(5) { size(1.fr) } }
+        }
+        .gap(0.5.cssRem)
+        .width(70.cssRem)
+        .height(18.cssRem)
+}
 
 private val GridCellColorVar by StyleVariable<Color>()
-val GridCellStyle by ComponentStyle.base {
+val HomeGridCellStyle by ComponentStyle.base {
     Modifier
         .backgroundColor(GridCellColorVar.value())
         .boxShadow(blurRadius = 0.6.cssRem, color = GridCellColorVar.value())
@@ -48,7 +59,7 @@ val GridCellStyle by ComponentStyle.base {
 @Composable
 private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, height: Int? = null) {
     Div(
-        GridCellStyle.toModifier()
+        HomeGridCellStyle.toModifier()
             .setVariable(GridCellColorVar, color)
             .gridItem(row, column, width, height)
             .toAttrs()
@@ -115,17 +126,7 @@ fun HomePage() {
                 }
             }
 
-            Div(Modifier
-                .displayIfAtLeast(Breakpoint.MD)
-                .grid {
-                    rows { repeat(3) { size(1.fr) } }
-                    columns { repeat(5) { size(1.fr) } }
-                }
-                .gap(0.5.cssRem)
-                .width(70.cssRem)
-                .height(18.cssRem)
-                .toAttrs()
-            ) {
+            Div(HomeGridStyle.toAttrs()) {
                 val sitePalette = ColorMode.current.toSitePalette()
                 GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
                 GridCell(ColorSchemes.Monochrome._600, 1, 3)
