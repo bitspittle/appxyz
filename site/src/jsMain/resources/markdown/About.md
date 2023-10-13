@@ -11,8 +11,8 @@ build your own app from.
 
 ## Learn
 
-If this is your first time using Kobweb, please open your project in an IDE and take a few minutes to look around the
-code.
+If this is your first time using Kobweb, please open this site's project in an IDE and take a few minutes to look around
+the code.
 
 ### Files
 
