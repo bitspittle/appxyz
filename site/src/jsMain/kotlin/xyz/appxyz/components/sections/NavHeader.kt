@@ -67,10 +67,7 @@ private fun ColorModeButton() {
 
 @Composable
 private fun HamburgerButton(onClick: () -> Unit) {
-    Button(
-        onClick = { onClick() },
-        variant = CircleButtonVariant.then(UncoloredButtonVariant)
-    ) {
+    Box(ClickableStyle.toModifier().onClick { onClick() }) {
         HamburgerIcon()
     }
 }
@@ -146,15 +143,16 @@ fun NavHeader() {
                                     )
                                     .borderRadius(topLeft = 1.cssRem)
                                     .fillMaxHeight()
-                                    .padding(left = 5.cssRem, top = 1.cssRem, right = 1.cssRem)
+                                    // Close button will appear roughly over the hamburger button, so the user can close
+                                    // things without moving their finger / cursor much.
+                                    .padding(left = 5.cssRem, top = 2.cssRem, right = 1.cssRem)
                                     .gap(1.5.cssRem)
                                     .onClick { it.stopPropagation() }
                                     .onAnimationEnd {
                                         if (menuState == SideMenuState.CLOSING) menuState = SideMenuState.CLOSED
                                     },
                                 horizontalAlignment = Alignment.End
-                            )
-                            {
+                            ) {
                                 CloseButton { menuState = menuState.close() }
                                 MenuItems()
                             }

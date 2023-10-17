@@ -5,18 +5,18 @@ import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 import xyz.appxyz.toSitePalette
 
 val MarkdownStyle by ComponentStyle {
+    base { Modifier.padding(leftRight = 5.percent) }
+
     // The following rules apply to all descendant elements, indicated by the leading space.
     // When you use `cssRule`, the name of this style is prefixed in front of it.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator
