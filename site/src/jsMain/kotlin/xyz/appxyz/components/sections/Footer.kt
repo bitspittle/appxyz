@@ -20,13 +20,14 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.FlexWrap
 import org.jetbrains.compose.web.css.cssRem
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.dom.Span
 import xyz.appxyz.toSitePalette
 
 val FooterStyle by ComponentStyle.base {
     Modifier
         .backgroundColor(colorMode.toSitePalette().nearBackground)
-        .padding(topBottom = 1.5.cssRem)
+        .padding(topBottom = 1.5.cssRem, leftRight = 10.percent)
 }
 
 @Composable

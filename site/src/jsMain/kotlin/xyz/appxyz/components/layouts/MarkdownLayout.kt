@@ -2,6 +2,7 @@ package xyz.appxyz.components.layouts
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -78,6 +79,7 @@ val MarkdownStyle by ComponentStyle {
             .borderRadius(0.25.cssRem)
             .padding(0.5.cssRem)
             .fontSize(1.cssRem)
+            .overflow { x(Overflow.Auto) }
     }
 }
 
