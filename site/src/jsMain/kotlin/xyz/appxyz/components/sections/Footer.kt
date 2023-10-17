@@ -1,14 +1,14 @@
 package xyz.appxyz.components.sections
 
 import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.flexWrap
-import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.setVariable
+import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
@@ -20,6 +20,7 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.FlexWrap
 import org.jetbrains.compose.web.css.cssRem
+import org.jetbrains.compose.web.dom.Span
 import xyz.appxyz.toSitePalette
 
 val FooterStyle by ComponentStyle.base {
@@ -31,7 +32,7 @@ val FooterStyle by ComponentStyle.base {
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
     Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
-        Row(Modifier.flexWrap(FlexWrap.Wrap)) {
+        Span(Modifier.textAlign(TextAlign.Center).toAttrs()) {
             val sitePalette = ColorMode.current.toSitePalette()
             SpanText("Built with ")
             Link(
@@ -41,15 +42,15 @@ fun Footer(modifier: Modifier = Modifier) {
                 variant = UncoloredLinkVariant
             )
             SpanText(", template designed by ")
+
+            // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template design together for us!
+            // If you like what you see here and want help building your own site, consider checking out their services.
             Link(
                 "https://ui-rocket.com",
                 "UI Rocket",
-                Modifier
-                    .setVariable(ColorVar, sitePalette.brand.accent),
+                Modifier.setVariable(ColorVar, sitePalette.brand.accent).whiteSpace(WhiteSpace.NoWrap),
                 variant = UncoloredLinkVariant
             )
-            // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template together for us! If you
-            // like the design here and want help building your own site, please check them out at the link above!
         }
     }
 }

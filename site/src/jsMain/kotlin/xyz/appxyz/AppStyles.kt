@@ -25,19 +25,6 @@ import org.jetbrains.compose.web.css.px
 
 @InitSilk
 fun initSiteStyles(ctx: InitSilkContext) {
-    ctx.stylesheet.registerStyleBase("html") {
-        Modifier
-            .scrollBehavior(ScrollBehavior.Smooth)
-            .overflow {
-                // Always show a vertical scrollbar, or else our page content shifts when switching from one page that
-                // can scroll to one that can't
-                y(Overflow.Scroll)
-
-                // Never show the horizontal scrollbar. Our page should be responsively designed to avoid needing it.
-                x(Overflow.Clip)
-            }
-    }
-
     ctx.stylesheet.registerStyleBase("body") {
         Modifier
             .fontFamily(
