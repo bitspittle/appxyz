@@ -12,6 +12,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.animation.Keyframes
 import com.varabyte.kobweb.silk.components.animation.toAnimation
 import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.forms.ButtonVars
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.CloseIcon
 import com.varabyte.kobweb.silk.components.icons.HamburgerIcon
@@ -58,6 +59,7 @@ private fun ColorModeButton() {
     var colorMode by ColorMode.currentState
     Button(
         onClick = { colorMode = colorMode.opposite },
+        Modifier.setVariable(ButtonVars.FontSize, 1.em), // Make button icon size relative to parent container font size
         variant = CircleButtonVariant.then(UncoloredButtonVariant)
     ) {
         if (colorMode.isLight) MoonIcon() else SunIcon()
@@ -117,7 +119,7 @@ fun NavHeader() {
             ColorModeButton()
         }
 
-        Row(Modifier.gap(0.5.cssRem).displayUntil(Breakpoint.MD), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.gap(1.5.cssRem).displayUntil(Breakpoint.MD).fontSize(1.5.cssRem), verticalAlignment = Alignment.CenterVertically) {
             var menuState by remember { mutableStateOf(SideMenuState.CLOSED) }
 
             ColorModeButton()
