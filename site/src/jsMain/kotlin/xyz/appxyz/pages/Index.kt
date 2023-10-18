@@ -36,6 +36,12 @@ import xyz.appxyz.SubheadlineTextStyle
 import xyz.appxyz.components.layouts.PageLayout
 import xyz.appxyz.toSitePalette
 
+// Container that has a tagline and grid on desktop, and just the tagline on mobile
+val HeroContainerStyle by ComponentStyle {
+    base { Modifier.fillMaxWidth().gap(2.cssRem) }
+    Breakpoint.MD { Modifier.margin { top(20.vh) } }
+}
+
 // A demo grid that appears on the homepage because it looks good
 val HomeGridStyle by ComponentStyle.base(extraModifiers = Modifier.displayIfAtLeast(Breakpoint.MD)) {
     Modifier
@@ -83,7 +89,7 @@ private fun SvgBlurredEllipse(color: Color, modifier: Modifier) {
 @Composable
 fun HomePage() {
     PageLayout("Home") {
-        Row(Modifier.fillMaxWidth().gap(2.cssRem).margin(top = 20.vh)) {
+        Row(HeroContainerStyle.toModifier()) {
             Box {
                 val sitePalette = ColorMode.current.toSitePalette()
 

@@ -38,12 +38,10 @@ fun AppEntry(content: @Composable () -> Unit) {
             .minHeight(100.vh)
             .scrollBehavior(ScrollBehavior.Smooth)
             .overflow {
+                x(Overflow.Auto)
                 // Always show a vertical scrollbar, or else our page content shifts when switching from one page that
                 // can scroll to one that can't
                 y(Overflow.Scroll)
-
-                // Never show the horizontal scrollbar. Our page should be responsively designed to avoid needing it.
-                x(Overflow.Clip)
             }
         ) {
             content()

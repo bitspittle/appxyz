@@ -3,6 +3,8 @@ package xyz.appxyz.components.layouts
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.Overflow
+import com.varabyte.kobweb.compose.css.OverflowWrap
+import com.varabyte.kobweb.compose.css.WordBreak
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -26,7 +28,7 @@ val MarkdownStyle by ComponentStyle {
         Modifier
             .fontSize(3.8.cssRem)
             .fontWeight(400)
-            .margin(topBottom = 2.5.cssRem)
+            .margin(bottom = 2.5.cssRem)
             .lineHeight(1.2) //1.5x doesn't look as good on very large text
     }
 
@@ -63,6 +65,7 @@ val MarkdownStyle by ComponentStyle {
         Modifier
             .color(colorMode.toPalette().color.toRgb().copyf(alpha = 0.8f))
             .fontWeight(FontWeight.Bolder)
+            .wordBreak(WordBreak.BreakAll)
     }
 
     cssRule(" pre") {

@@ -13,6 +13,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.base
+import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import kotlinx.browser.document
@@ -23,8 +24,8 @@ import xyz.appxyz.components.sections.Footer
 import xyz.appxyz.components.sections.NavHeader
 import xyz.appxyz.toSitePalette
 
-val PageContentStyle by ComponentStyle.base {
-    Modifier.maxWidth(60.cssRem).padding(2.cssRem).fillMaxHeight()
+val PageContentStyle by ComponentStyle {
+    base { Modifier.maxWidth(60.cssRem).fillMaxHeight().padding(leftRight = 2.cssRem, top = 6.cssRem) }
 }
 
 // NOTE: This is a fun little graphic that showcases what you can do with SVG. However, this probably does not make

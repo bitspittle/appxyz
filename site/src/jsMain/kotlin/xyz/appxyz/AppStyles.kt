@@ -1,8 +1,6 @@
 package xyz.appxyz
 
 import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.Overflow
-import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
