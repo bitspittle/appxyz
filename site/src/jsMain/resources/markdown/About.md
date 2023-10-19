@@ -51,8 +51,7 @@ that additional pages (like this one!) might live under the `resources/markdown`
 
 * `public`<br>
   If you want to host any media on your site (such as an icon, an image, text configuration files, movies, fonts, etc.),
-  you should put it under this folder. For example, the file `public/images/cat.png` would be available at
-  `https://(your.site)/images/cat.png` when the site was deployed.
+  you should put it under this folder.
 * `markdown`<br>
   Any markdown discovered in here by Kobweb at compile time will be converted into pages on your site.
 
