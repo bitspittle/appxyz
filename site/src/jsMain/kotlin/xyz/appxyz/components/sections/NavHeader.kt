@@ -166,7 +166,7 @@ private fun SideMenu(menuState: SideMenuState, close: () -> Unit, onAnimationEnd
                 horizontalAlignment = Alignment.End
             ) {
                 CloseButton(onClick = { close() })
-                Column(Modifier.padding(right = 0.75.cssRem).gap(1.5.cssRem), horizontalAlignment = Alignment.End) {
+                Column(Modifier.padding(right = 0.75.cssRem).gap(1.5.cssRem).fontSize(1.5.cssRem), horizontalAlignment = Alignment.End) {
                     MenuItems()
                 }
             }
