@@ -16,15 +16,13 @@ import org.jetbrains.compose.web.css.*
 import xyz.appxyz.toSitePalette
 
 val MarkdownStyle by ComponentStyle {
-    base { Modifier.padding(leftRight = 5.percent) }
-
     // The following rules apply to all descendant elements, indicated by the leading space.
     // When you use `cssRule`, the name of this style is prefixed in front of it.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator
 
     cssRule(" h1") {
         Modifier
-            .fontSize(3.8.cssRem)
+            .fontSize(3.cssRem)
             .fontWeight(400)
             .margin(bottom = 2.5.cssRem)
             .lineHeight(1.2) //1.5x doesn't look as good on very large text
