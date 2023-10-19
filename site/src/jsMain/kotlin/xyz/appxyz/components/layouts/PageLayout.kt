@@ -2,7 +2,6 @@ package xyz.appxyz.components.layouts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.varabyte.kobweb.compose.css.height
 import com.varabyte.kobweb.compose.dom.svg.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -12,7 +11,6 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
@@ -25,7 +23,8 @@ import xyz.appxyz.components.sections.NavHeader
 import xyz.appxyz.toSitePalette
 
 val PageContentStyle by ComponentStyle {
-    base { Modifier.maxWidth(60.cssRem).fillMaxHeight().padding(leftRight = 2.cssRem, top = 6.cssRem) }
+    base { Modifier.fillMaxHeight().padding(leftRight = 2.cssRem, top = 4.cssRem) }
+    Breakpoint.MD { Modifier.maxWidth(60.cssRem) }
 }
 
 // NOTE: This is a fun little graphic that showcases what you can do with SVG. However, this probably does not make
@@ -34,7 +33,8 @@ val PageContentStyle by ComponentStyle {
 private fun SvgCobweb(modifier: Modifier) {
     val color = ColorMode.current.toSitePalette().cobweb
 
-    Svg(attrs = modifier.toAttrs {
+    // On mobile, the SVG would cause scrolling, so clamp its max width
+    Svg(attrs = modifier.maxWidth(100.percent).toAttrs {
         width(25.cssRem)
         height(20.cssRem)
     }) {

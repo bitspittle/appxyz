@@ -4,11 +4,9 @@ import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.OverflowWrap
-import com.varabyte.kobweb.compose.css.WordBreak
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.toModifier
@@ -57,6 +55,10 @@ val MarkdownStyle by ComponentStyle {
         Modifier.margin(bottom = 0.8.cssRem)
     }
 
+    cssRule(" ul") {
+        Modifier.fillMaxWidth().overflowWrap(OverflowWrap.BreakWord)
+    }
+
     cssRule(" li,ol,ul") {
         Modifier.margin(bottom = 0.25.cssRem)
     }
@@ -65,7 +67,6 @@ val MarkdownStyle by ComponentStyle {
         Modifier
             .color(colorMode.toPalette().color.toRgb().copyf(alpha = 0.8f))
             .fontWeight(FontWeight.Bolder)
-            .wordBreak(WordBreak.BreakAll)
     }
 
     cssRule(" pre") {
@@ -75,7 +76,7 @@ val MarkdownStyle by ComponentStyle {
     }
     cssRule(" pre > code") {
         Modifier
-            .display(DisplayStyle.InlineBlock)
+            .display(DisplayStyle.Block)
             .fillMaxWidth()
             .backgroundColor(colorMode.toSitePalette().nearBackground)
             .border(1.px, LineStyle.Solid, colorMode.toPalette().color)
