@@ -74,7 +74,9 @@ private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, he
 
 @Composable
 private fun SvgBlurredEllipse(color: Color, modifier: Modifier) {
-    Svg(attrs = modifier.filter(blur(100.px)).toAttrs()) {
+    // Set max width to 100% so that on really small mobile screens, the ellipse will start to shrink and
+    // avoid causing a horizontal scrollbar to appear
+    Svg(attrs = modifier.filter(blur(100.px)).maxWidth(100.percent).toAttrs()) {
         Ellipse {
             cx(50.percent)
             cy(50.percent)
