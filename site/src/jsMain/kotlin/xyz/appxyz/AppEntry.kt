@@ -2,10 +2,8 @@ package xyz.appxyz
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
-import com.varabyte.kobweb.compose.ui.modifiers.overflow
 import com.varabyte.kobweb.compose.ui.modifiers.scrollBehavior
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
@@ -34,15 +32,10 @@ fun AppEntry(content: @Composable () -> Unit) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode.name)
         }
 
-        Surface(SmoothColorStyle.toModifier()
-            .minHeight(100.vh)
-            .scrollBehavior(ScrollBehavior.Smooth)
-            .overflow {
-                x(Overflow.Auto)
-                // Always show a vertical scrollbar, or else our page content shifts when switching from one page that
-                // can scroll to one that can't
-                y(Overflow.Scroll)
-            }
+        Surface(
+            SmoothColorStyle.toModifier()
+                .minHeight(100.vh)
+                .scrollBehavior(ScrollBehavior.Smooth)
         ) {
             content()
         }

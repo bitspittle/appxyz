@@ -60,12 +60,3 @@ val CircleButtonVariant by ButtonStyle.addVariantBase {
 val UncoloredButtonVariant by ButtonStyle.addVariantBase {
     Modifier.setVariable(ButtonVars.BackgroundDefaultColor, Colors.Transparent)
 }
-
-/**
- * A style to indicate that a component can be clicked on.
- *
- * If you use this style, you should probably also register an `onClick` modifier.
- */
-val ClickableStyle by ComponentStyle.base(extraModifiers = Modifier.tabIndex(0)) {
-    Modifier.cursor(Cursor.Pointer)
-}

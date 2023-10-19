@@ -1,18 +1,17 @@
 package xyz.appxyz.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.functions.clamp
 import com.varabyte.kobweb.compose.dom.ElementTarget
-import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.animation.Keyframes
 import com.varabyte.kobweb.silk.components.animation.toAnimation
-import com.varabyte.kobweb.silk.components.forms.Button
-import com.varabyte.kobweb.silk.components.forms.ButtonVars
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.CloseIcon
 import com.varabyte.kobweb.silk.components.icons.HamburgerIcon
@@ -23,19 +22,17 @@ import com.varabyte.kobweb.silk.components.layout.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
+import com.varabyte.kobweb.silk.components.overlay.Overlay
+import com.varabyte.kobweb.silk.components.overlay.OverlayVars
 import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
-import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.A
-import xyz.appxyz.CircleButtonVariant
-import xyz.appxyz.ClickableStyle
-import xyz.appxyz.UncoloredButtonVariant
+import xyz.appxyz.components.widgets.IconButton
 import xyz.appxyz.toSitePalette
 
 val NavHeaderStyle by ComponentStyle.base {
@@ -53,15 +50,10 @@ private fun MenuItems() {
     NavLink("/about", "About")
 }
 
-
 @Composable
 private fun ColorModeButton() {
     var colorMode by ColorMode.currentState
-    Button(
-        onClick = { colorMode = colorMode.opposite },
-        Modifier.setVariable(ButtonVars.FontSize, 1.em), // Make button icon size relative to parent container font size
-        variant = CircleButtonVariant.then(UncoloredButtonVariant)
-    ) {
+    IconButton(onClick = { colorMode = colorMode.opposite },) {
         if (colorMode.isLight) MoonIcon() else SunIcon()
     }
     Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)
@@ -69,14 +61,14 @@ private fun ColorModeButton() {
 
 @Composable
 private fun HamburgerButton(onClick: () -> Unit) {
-    Box(ClickableStyle.toModifier().onClick { onClick() }) {
+    IconButton(onClick) {
         HamburgerIcon()
     }
 }
 
 @Composable
 private fun CloseButton(onClick: () -> Unit) {
-    Box(ClickableStyle.toModifier().onClick { onClick() }) {
+    IconButton(onClick) {
         CloseIcon()
     }
 }
@@ -108,7 +100,7 @@ enum class SideMenuState {
 @Composable
 fun NavHeader() {
     Row(NavHeaderStyle.toModifier(), verticalAlignment = Alignment.CenterVertically) {
-        A("https://kobweb.varabyte.com") {
+        Link("https://kobweb.varabyte.com") {
             Image("/kobweb-logo.png", "Kobweb Logo", Modifier.height(2.cssRem))
         }
 
@@ -119,47 +111,63 @@ fun NavHeader() {
             ColorModeButton()
         }
 
-        Row(Modifier.gap(1.5.cssRem).displayUntil(Breakpoint.MD).fontSize(1.5.cssRem), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            Modifier
+                .fontSize(1.5.cssRem)
+                .gap(1.cssRem)
+                .displayUntil(Breakpoint.MD),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             var menuState by remember { mutableStateOf(SideMenuState.CLOSED) }
 
             ColorModeButton()
-            HamburgerButton { menuState = SideMenuState.OPEN }
+            HamburgerButton(onClick =  { menuState = SideMenuState.OPEN })
 
-            deferRender {
-                if (menuState != SideMenuState.CLOSED) {
-                    Box(
-                        Modifier
-                            .position(Position.Fixed).top(0.px).left(0.px).right(0.px).bottom(0.px)
-                            .onClick { menuState = menuState.close() },
-                        contentAlignment = Alignment.CenterEnd
-                    ) {
-                        key(menuState) { // Force recompute animation parameters when close button is clicked
-                            Column(
-                                Modifier
-                                    .backgroundColor(ColorMode.current.toSitePalette().nearBackground)
-                                    .animation(
-                                        SideMenuSlideInAnim.toAnimation(
-                                            duration = 200.ms,
-                                            direction = if (menuState == SideMenuState.OPEN) AnimationDirection.Normal else AnimationDirection.Reverse
-                                        )
-                                    )
-                                    .borderRadius(topLeft = 1.cssRem)
-                                    .fillMaxHeight()
-                                    // Close button will appear roughly over the hamburger button, so the user can close
-                                    // things without moving their finger / cursor much.
-                                    .padding(left = 5.cssRem, top = 2.cssRem, right = 1.cssRem)
-                                    .gap(1.5.cssRem)
-                                    .onClick { it.stopPropagation() }
-                                    .onAnimationEnd {
-                                        if (menuState == SideMenuState.CLOSING) menuState = SideMenuState.CLOSED
-                                    },
-                                horizontalAlignment = Alignment.End
-                            ) {
-                                CloseButton { menuState = menuState.close() }
-                                MenuItems()
-                            }
-                        }
-                    }
+            if (menuState != SideMenuState.CLOSED) {
+                SideMenu(
+                    menuState,
+                    close = { menuState = menuState.close() },
+                    onAnimationEnd = { if (menuState == SideMenuState.CLOSING) menuState = SideMenuState.CLOSED }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SideMenu(menuState: SideMenuState, close: () -> Unit, onAnimationEnd: () -> Unit) {
+    Overlay(
+        Modifier
+            .setVariable(OverlayVars.BackgroundColor, Colors.Transparent)
+            .onClick { close() }
+    ) {
+        key(menuState) { // Force recompute animation parameters when close button is clicked
+            Column(
+                Modifier
+                    .fillMaxHeight()
+                    .width(clamp(8.cssRem, 33.percent, 10.cssRem))
+                    .align(Alignment.CenterEnd)
+                    // Close button will appear roughly over the hamburger button, so the user can close
+                    // things without moving their finger / cursor much.
+                    .padding(top = 1.cssRem, leftRight = 1.cssRem)
+                    .gap(1.5.cssRem)
+                    .backgroundColor(ColorMode.current.toSitePalette().nearBackground)
+                    .animation(
+                        SideMenuSlideInAnim.toAnimation(
+                            duration = 200.ms,
+                            timingFunction = if (menuState == SideMenuState.OPEN) AnimationTimingFunction.EaseOut else AnimationTimingFunction.EaseIn,
+                            direction = if (menuState == SideMenuState.OPEN) AnimationDirection.Normal else AnimationDirection.Reverse,
+                            fillMode = AnimationFillMode.Forwards
+                        )
+                    )
+                    .borderRadius(topLeft = 2.cssRem)
+                    .onClick { it.stopPropagation() }
+                    .onAnimationEnd { onAnimationEnd() },
+                horizontalAlignment = Alignment.End
+            ) {
+                CloseButton(onClick = { close() })
+                Column(Modifier.padding(right = 0.75.cssRem).gap(1.5.cssRem), horizontalAlignment = Alignment.End) {
+                    MenuItems()
                 }
             }
         }
